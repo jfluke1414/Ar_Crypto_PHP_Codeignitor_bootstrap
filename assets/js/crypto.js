@@ -464,10 +464,15 @@ $(function() {
 	    		snt_count=0;
 	    	}
 	    	
+			if(btc_count=="" && eth_count=="" && xrp_count=="" && ltc_count=="" && bch_count=="" && dash_count=="" && pib_count=="" && qtum_count=="" && snt_count==""){
+				alert('Please setting your coin quantities.');
+				return false;
+			}
+
 			var dataString = 'btc_count='+ btc_count +'&eth_count='+ eth_count + '&xrp_count='+ xrp_count+'&ltc_count='+ltc_count+
 			'&bch_count='+ bch_count +'&dash_count='+ dash_count +'&pib_count='+pib_count+'&qtum_count='+qtum_count+
 			'&snt_count='+snt_count;
-			alert(dataString);
+			
 	        $.ajax({
 	            type        : "POST",
 	            url         : "Setting/save_user_coin_ajax",
@@ -479,6 +484,7 @@ $(function() {
 			    	
 			    	if(data.status == 'success'){
 						alert(data.message);
+						window.location.reload();
 					}
 				},
 				error : function(results){

@@ -7,10 +7,7 @@ class Mfunctions extends CI_Model {
         parent::__construct();
 		$this->load->database();
     }
-    
-		
-	
-	
+
     function get_coininfo_selected()
     {
 //         $btc = $this->input->post('btc_count');
@@ -81,6 +78,5 @@ class Mfunctions extends CI_Model {
         return $query->result();
         
     }
-
-
+    
 }

@@ -46,11 +46,193 @@ class Main extends Crypto_Controller {
     		$ex_name = 'poloniex';
     		$data[$ex_name] = $this->get_coin_info($ex_name);
     		
-    		$data['subtracted_list'] = $this->get_user_coin();
+    		$data['subtracted_list'] = $this->get_user_coin();    		
     		$this->_header();
             $this->load->view('main_view', $data);
             $this->_footer();
 	    }
+	}
+	
+	function get_user_coin_chart(){
+	    $result = $this->get_user_coin_ajax();
+	    $sum_arr = $result['sum'];
+	    $data = $result['data'];
+	    echo json_encode(array('status' => 'success', 'data' => $data, 'sum_arr' => $sum_arr));
+	    exit;
+	}
+	
+	function get_user_coin_areachart(){
+	    $result = $this->get_user_coin_ajax();
+	    $sum_arr = $result['sum'];
+	    $data = $result['data'];
+	    
+	    
+	    $year = date("Y");
+	    $month = date("n");
+	    $today = date("j");
+	    $before_month = date("Y-m-d", strtotime( date("Y-m-d", strtotime( date("Y-m-d"))) . "-1 month" ));
+	    $lastday_beforemonth = date("t", strtotime( date("Y-m-d", strtotime( date("Y-m-d") )) . "-1 month" )); //2020-08-31
+	    $beforemonth_month = date("n", strtotime( date("Y-m-d", strtotime( date("Y-m-d") )) . "-1 month" ));//7
+	    
+	    $date_info = array(
+	        'year' => $year,
+	        'month' => $month,
+	        'today' => $today,
+	        'before_month' => $before_month,
+	        'lastday_beforemonth' => $lastday_beforemonth,
+	        'beforemonth_month' => $beforemonth_month
+	    );
+	    $this->load->model('Mains');
+	    $areachart_data = $this->Mains->get_total_fromto($today, $month, $year, $before_month, $lastday_beforemonth, $beforemonth_month);
+	    
+	    $areachart_data_arr = array();
+	    foreach($areachart_data as $s){
+	        array_push($areachart_data_arr, $s->sum);
+	    }
+	    
+	    echo json_encode(array('status' => 'success', 'data' => $data, 'sum_arr' => $sum_arr, 'ereachart_data' => $areachart_data_arr, 'date_info' => $date_info));
+	    exit;
+	}
+	
+	
+	function get_user_coin_ajax(){
+	    
+	    $this->load->model('Musers');
+	    $result = $this->Musers->get_user_coin();
+	    
+	    $currency_btc = 'btc';
+	    $currency_eth = 'eth';
+	    $currency_xrp = 'xrp';
+	    $currency_ltc = 'ltc';
+	    $currency_bch = 'bch';
+	    $currency_dash = 'dash';
+	    $currency_pib = 'pib';
+	    $currency_qtum = 'qtum';
+	    $currency_snt = 'snt';
+	    
+	    if($result){
+	        foreach($result as $list){
+	            $btc_count = $list->btc_count;
+	            $eth_count = $list->eth_count;
+	            $xrp_count = $list->xrp_count;
+	            $ltc_count = $list->ltc_count;
+	            $bch_count = $list->bch_count;
+	            $dash_count = $list->dash_count;
+	            $pib_count = $list->pib_count;
+	            $qtum_count = $list->qtum_count;
+	            $snt_count = $list->snt_count;
+	        }
+	    } else {
+	        $btc_count = 0;
+	        $eth_count = 0;
+	        $xrp_count = 0;
+	        $ltc_count = 0;
+	        $bch_count = 0;
+	        $dash_count = 0;
+	        $pib_count = 0;
+	        $qtum_count = 0;
+	        $snt_count = 0;
+	    }
+	    
+	    
+	    $this->load->model('Mfunctions');
+	    $coin_data = $this->Mfunctions->get_coininfo_selected();
+	    
+	    
+	    foreach($coin_data as $list){
+	        if($list->currency == 'btc'){
+	            $sum_btc = $list->price * $btc_count;
+	            $btc_rate = $list->price;
+	        }
+	        if($list->currency == 'eth'){
+	            $sum_eth = $list->price * $eth_count;
+	            $eth_rate = $list->price;
+	        }
+	        if($list->currency == 'xrp'){
+	            $sum_xrp = $list->price * $xrp_count;
+	            $xrp_rate = $list->price;
+	        }
+	        if($list->currency == 'ltc'){
+	            $sum_ltc = $list->price * $ltc_count;
+	            $ltc_rate = $list->price;
+	        }
+	        if($list->currency == 'bch'){
+	            $sum_bch = $list->price * $bch_count;
+	            $bch_rate = $list->price;
+	        }
+	        if($list->currency == 'dash'){
+	            $sum_dash = $list->price * $dash_count;
+	            $dash_rate = $list->price;
+	        }
+	        if($list->currency == 'pib'){
+	            $sum_pib = $list->price * $pib_count;
+	            $pib_rate = $list->price;
+	        }
+	        if($list->currency == 'qtum'){
+	            $sum_qtum = $list->price * $qtum_count;
+	            $qtum_rate = $list->price;
+	        }
+	        if($list->currency == 'snt'){
+	            $sum_snt = $list->price * $snt_count;
+	            $snt_rate = $list->price;
+	        }
+	    }
+	    
+	    $subtracted_arr['data'] = array(
+	        'currency_btc' => strtoupper($currency_btc),
+	        'sum_btc' => $sum_btc,
+	        	        
+	        'currency_eth'=> strtoupper($currency_eth),
+	        'sum_eth' => $sum_eth,
+	        
+	        'currency_xrp'=> strtoupper($currency_xrp),
+	        'sum_xrp' => $sum_xrp,
+	        
+	        'currency_ltc' => strtoupper($currency_ltc),
+	        'sum_ltc' => $sum_ltc,
+	        
+	        'currency_bch'=> strtoupper($currency_bch),
+	        'sum_bch' => $sum_bch,
+	        
+	        'currency_dash' => strtoupper($currency_dash),
+	        'sum_dash' => $sum_dash,
+	        
+	        'currency_pib'=> strtoupper($currency_pib),
+	        'sum_pib' => $sum_pib,
+	        
+	        'currency_qtum'=> strtoupper($currency_qtum),
+	        'sum_qtum' => $sum_qtum,
+	        
+	        'currency_snt'=> strtoupper($currency_snt),
+	        'sum_snt' => $sum_snt,
+	        
+	        'sum_total' => $sum_btc+$sum_eth+$sum_xrp+$sum_ltc+$sum_bch+$sum_dash+$sum_qtum+$sum_pib+$sum_snt
+	        
+	    );
+	    
+	    $subtracted_arr['sum'] = array(
+	        'btc' => $sum_btc,
+	        'eth' => $sum_eth,
+	        'xrp' => $sum_xrp,
+	        'bch' => $sum_bch,
+	        'ltc' => $sum_ltc,
+	        'dash' => $sum_dash,
+	        'pib' => $sum_pib,
+	        'qtum' => $sum_qtum,
+	        'snt' => $sum_snt
+	    );
+	    
+	    // 	    $data['$substracted_btc'] = $substracted_btc;
+	    // 	    $data['$substracted_eth'] = $substracted_eth;
+	    // 	    $data['$substracted_xrp'] = $substracted_xrp;
+	    // 	    $data['$substracted_bch'] = $substracted_bch;
+	    // 	    $data['$substracted_dash'] = $substracted_dash;
+	    // 	    $data['$substracted_pib'] = $substracted_pib;
+	    // 	    $data['$substracted_qtum'] = $substracted_qtum;
+	    // 	    $data['$substracted_snt'] = $substracted_snt;
+	    
+	    return $subtracted_arr;
+	    
 	}
 	
 	

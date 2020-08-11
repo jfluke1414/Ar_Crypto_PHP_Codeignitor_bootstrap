@@ -168,12 +168,11 @@ class Mains extends CI_Model {
         return $query->result();
 	}
 	
-	function get_coin_info(){
-	    
-        $q = '';
-	    $this->db->get('coin_info');
+	function get_user_info(){
+
+	    $query = $this->db->get('user_coin');
+	    return $query->result();
 	}
-	
 	
 	function get_coin_info_ajax($ex_name)
 	{
@@ -220,5 +219,35 @@ class Mains extends CI_Model {
         return $query->result();
     }
 
-	
+    function save_total_info($user_id, $total){
+        $this->db->set('user_id', $user_id);
+        $this->db->set('sum', $total);
+        $this->db->set('date', 'Now()', FALSE);        
+        $this->db->insert('user_total_info');
+    }
+    
+    
+    
+    function get_total_fromto($today, $month, $year, $before_month, $lastday_beforemonth, $beforemonth_month){
+        $month = sprintf('%02d',$month);
+        $user_id = 'jfluke1414@gmail.com';
+        $sql = 'SELECT * FROM user_total_info WHERE user_id ="'.$user_id.'" AND (date like "'.$before_month.' 03:00%" OR';
+        
+        for($i=$today;$i<=$lastday_beforemonth;$i++){
+            $i = sprintf('%02d',$i);
+            $sql .= ' DATE LIKE "'.$year.'-'.$beforemonth_month.'-'.$i.' 03:00%" OR ';
+        }
+        for($i=1;$i<=$today;$i++){
+            $i = sprintf('%02d',$i);
+            if($i==$today){
+                $sql .= ' DATE LIKE "'.$year.'-'.$month.'-'.$i.' 03:00%") ORDER BY DATE DESC;';
+            } else {
+                $sql .= ' DATE LIKE "'.$year.'-'.$month.'-'.$i.' 03:00%" OR';
+            }
+        }
+                
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
 }

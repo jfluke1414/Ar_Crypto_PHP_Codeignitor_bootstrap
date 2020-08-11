@@ -1,7 +1,7 @@
 		<?php
 			foreach($exchange as $list){
 				if($list->currency == "usd_krw"){
-					$usdkrw = $list->rate;
+				    $usdkrw = number_format($list->rate, 2, '.', ',');
 				}
 				if($list->currency == "cad_krw"){
 					$cadkrw = $list->rate;
@@ -41,7 +41,6 @@
   					$coinone_pib_currency = strtoupper($list->currency);
   					$coinone_pib_last = number_format($list->price, 2, '.', ',');
   				}
-  				
   			};
 
 
@@ -276,26 +275,28 @@
   			$percent_xrp_poloniex = round(($sub_xrp_poloniex/$xrp_max) * 100, 2);
   			$sub_xrp_upbit = $upbit_xrp_last_ori-$xrp_max;
   			$percent_xrp_upbit = round(($sub_xrp_upbit/$xrp_max) * 100, 2);
+  			
+  			$total = $subtracted_list['sum_total'];
 
  	?>
 
             <div id="head_img">
                 <div class="RollDiv">  
                   <div>  
-            		<p><font size="2"><strong>BTC Max<br><?=number_format($btc_max, 2, '.', ',')?></strong></font></p>
-                    <p><font size="2"><strong>ETH Max<br><?=number_format($eth_max, 2, '.', ',')?></strong></font></p>
-                    <p><font size="2"><strong>XRP Max<br><?=number_format($xrp_max, 2, '.', ',')?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$coinone_btc_currency?><br><?=$coinone_btc_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$coinone_eth_currency?><br><?=$coinone_eth_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$coinone_xrp_currency?><br><?=$coinone_xrp_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$coinone_ltc_currency?><br><?=$coinone_ltc_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$coinone_bch_currency?><br><?=$coinone_bch_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$coinfield_dash_currency?><br><?=$coinfield_dash_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$coinone_pib_currency?><br><?=$coinone_pib_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$upbit_qtum_currency?><br><?=$upbit_qtum_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$upbit_snt_currency?><br><?=$upbit_snt_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$upbit_snt_currency?><br><?=$upbit_snt_last?></strong></font></p>
-                    <p><font size="2" bold><strong><?=$upbit_snt_currency?><br><?=$upbit_snt_last?></strong></font></p>
+            		<p><font size="2"><strong>BTC Max<br>\<?=number_format($btc_max, 2, '.', ',')?></strong></font></p>
+                    <p><font size="2"><strong>ETH Max<br>\<?=number_format($eth_max, 2, '.', ',')?></strong></font></p>
+                    <p><font size="2"><strong>XRP Max<br>\<?=number_format($xrp_max, 2, '.', ',')?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$coinone_btc_currency?><br>\<?=$coinone_btc_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$coinone_eth_currency?><br>\<?=$coinone_eth_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$coinone_xrp_currency?><br>\<?=$coinone_xrp_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$coinone_ltc_currency?><br>\<?=$coinone_ltc_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$coinone_bch_currency?><br>\<?=$coinone_bch_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$coinfield_dash_currency?><br>\<?=$coinfield_dash_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$coinone_pib_currency?><br>\<?=$coinone_pib_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$upbit_qtum_currency?><br>\<?=$upbit_qtum_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$upbit_snt_currency?><br>\<?=$upbit_snt_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$upbit_snt_currency?><br>\<?=$upbit_snt_last?></strong></font></p>
+                    <p><font size="2" bold><strong><?=$upbit_snt_currency?><br>\<?=$upbit_snt_last?></strong></font></p>
                   </div>  
                 </div>
             </div>
@@ -305,7 +306,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800">DASHBOARD</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
 
@@ -318,8 +319,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">My Total estimated value</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">\<?=$total?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -378,8 +379,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">USD->KRW</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$1 = \<?=$usdkrw?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -391,15 +392,16 @@
           </div>
 
           <!-- Content Row -->
-
+          
+          
           <div class="row">
 
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <!-- Bar Chart -->
+            <div class="col-xl-8 col-lg-7" style="max-width:100%;flex:100%;">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Daily Earnings Overview</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -421,13 +423,49 @@
                 </div>
               </div>
             </div>
+          </div>
+          
+          
+          
+          
+          
+
+          <div class="row">
+
+            <!-- Bar Chart -->
+            <div class="col-xl-8 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Total Earnings Overview</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Dropdown Header:</div>
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myBarChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <!-- Pie Chart -->
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Coin Distribution Overview</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -446,17 +484,24 @@
                   <div class="chart-pie pt-4 pb-2">
                     <canvas id="myPieChart"></canvas>
                   </div>
+                  
                   <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
+                    <!-- <span class="mr-2">
+                    <i class="fas fa-circle text-primary"></i>
+                    </span> -->
+                    <div id="pie_coin_kind"></div>
+                    
+                    <!-- <span class="mr-2">
+                    <i class="fas fa-circle text-success"></i>
                     </span>
                     <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
-                    </span>
+                    <i class="fas fa-circle text-info"></i>
+                    </span> -->
+                    
                   </div>
+          
+                  
+                  
                 </div>
               </div>
             </div>
@@ -467,7 +512,7 @@
 		<?php 
 			
 // 		    var_dump($subtracted_list);
-		    $total = $subtracted_list['sum_total'];
+		    
 		    
 // 		    $btc_value = $subtracted_list['sum_btc'];
 // 			$eth_value = $subtracted_list['sum_eth'];
@@ -538,16 +583,25 @@
                     <tr>
                       <!-- <th colspan="2" style="text-align:center;">COIN</th> -->
                       <th colspan="2" style="text-align:center;">TOTAL AMOUNT</th>
-                      <th colspan="2" style="color:red;"><?=$total?></th>
+                      <th colspan="2" style="color:red;">\<?=$total?></th>
                     </tr>
                   </tfoot>
                   	<tr>
                       <?php foreach($subtracted_list as $key => $data){
                       	$total_pos = strpos($key, 'total');
+                      	$currency_pos = strpos($key, 'rate');
+                      	
+                      	$sum_str = substr($key, 0, 3);
+                      	
                       	if($total_pos == false){
-                   	    ?>
-                      	      <td><?=$data?></td>
-                   	    <?php 
+                      	    if($currency_pos == true || $sum_str == 'sum'){?>
+                      	     
+                      	    <td>\<?=$data?></td>
+                      	    <?php 
+                      	    } else {?>
+                      	        <td><?=$data?></td>
+                      	        <?php 
+                      	    }
                       	}?>
                       <?php 
                          $pos = strpos($key, 'rate');

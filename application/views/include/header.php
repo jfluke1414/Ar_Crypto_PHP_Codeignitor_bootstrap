@@ -16,7 +16,8 @@
 
   <!-- Custom styles for this template-->
   <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">  
-  <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+  <link rel="stylesheet" href="/assets/css/main.css" type="text/css">  
+  <link rel="stylesheet" href="/assets/vendor/datatables/dataTables.bootstrap4.min.css">
   
   <script type="text/javascript" src="/assets/js/jquery.js"></script>
   <script type="text/javascript" src="/assets/js/jquery-ui.js"></script>
@@ -38,9 +39,9 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas cake"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Ar_Crypto <sup>2</sup></div>
       </a>
 
       <!-- Divider -->
@@ -49,16 +50,23 @@
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="/index.php/main">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-check"></i>
           <span>Dashboard</span></a>
       </li>
       
-      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/index.php/Market">
+          <i class="fas fa-chart-bar"></i><!-- fa-angle-double-right, fa-check -->
+          <span>Market</span></a>
+      </li>
+      
       <li class="nav-item active">
         <a class="nav-link" href="/index.php/Setting">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-cog"></i><!-- fa-angle-double-right, fa-check -->
           <span>Setting</span></a>
       </li>
+
+      <!-- End Nav Item - Dashboard -->
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -204,17 +212,20 @@
 
 			<!-- audio -->
             <audio autoplay controls loop style="height: 30px;margin-top: 20px;">
-		        <source src="/assets/music/adventure_of_a_lifetime.mp3" type="audio/mp3">
+		        <!-- <source src="/assets/music/adventure_of_a_lifetime.mp3" type="audio/mp3"> -->
           		<!-- <source src="/assets/music/interstellar_first_step.mp3" type="audio/mp3"> -->
         	</audio>
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
+			<?php 
+			     $session_username = $this->session->userdata('user_name');
+			?>
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$session_username?></span>
+                <!-- <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -222,7 +233,7 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="Setting">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
                 </a>
@@ -237,12 +248,6 @@
                 </a>
               </div>
             </li>
-            
           </ul>
-
         </nav>
         <!-- End of Topbar -->
-        
-        
-        
-        

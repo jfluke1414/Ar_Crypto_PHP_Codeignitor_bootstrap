@@ -31,7 +31,7 @@ class Musers extends CI_Model {
 			$data = array(
 					'isuser' => true,
 					'user_id' => $row->user_id,
-					'user_name' => $row->user_name				
+					'user_name' => $row->user_name
 					);
 			$this->session->set_userdata($data);
 			return true;
@@ -241,6 +241,12 @@ class Musers extends CI_Model {
     function get_user_coin(){
         $user_id = $this->session->userdata('user_id');
         $this->db->where('user_id', $user_id);
+        $query = $this->db->get('user_coin');
+        
+        return $query->result();
+    }
+    
+    function get_alluser_coin(){        
         $query = $this->db->get('user_coin');
         
         return $query->result();
