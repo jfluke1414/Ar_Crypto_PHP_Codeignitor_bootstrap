@@ -3,20 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Notice extends Crypto_Controller {
 
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();		
 	}
 	
-	public function Notice_1()
-	{		
+	public function Notice_1(){		
 		
 		$id = $this->input->get('list_id');
 		$data['notice_id'] = $id;
 		$this->load->model('Notices');
 
-		$pagenum = $this->uri->segment(3, 1);	//占쎈읂占쎌뵠筌욑옙 甕곕뜇�깈
-		$outcnt = '5';							//�뵳�딅뮞占쎈뱜 �빊�뮆�젾 揶쏉옙占쎈땾
+		$pagenum = $this->uri->segment(3, 1);	//å� ìŽˆì�‚å� ìŽŒëµ ç­Œìš‘ì˜™ ç”•ê³•ëœ‡ï¿½ê¹ˆ
+		$outcnt = '5';							//ï¿½ëµ³ï¿½ë”…ë®žå� ìŽˆë±œ ï¿½ë¹Šï¿½ë®†ï¿½ì ¾ æ�¶ì�‰ì˜™å� ìŽˆë•¾
 		
 		$params = array();
 		$params['outcnt'] = $outcnt;
@@ -53,16 +51,13 @@ class Notice extends Crypto_Controller {
 		$this->_footer();
 	}
 	
-	public function Notice_2()
-	{		
-		
-		
+	public function Notice_2(){		
 		$id = $this->input->get('list_id');
 		$data['notice_id'] = $id;
 		$this->load->model('Notices');
 
-		$pagenum = $this->uri->segment(3, 1);	//占쎈읂占쎌뵠筌욑옙 甕곕뜇�깈
-		$outcnt = '5';							//�뵳�딅뮞占쎈뱜 �빊�뮆�젾 揶쏉옙占쎈땾
+		$pagenum = $this->uri->segment(3, 1);	//å� ìŽˆì�‚å� ìŽŒëµ ç­Œìš‘ì˜™ ç”•ê³•ëœ‡ï¿½ê¹ˆ
+		$outcnt = '5';							//ï¿½ëµ³ï¿½ë”…ë®žå� ìŽˆë±œ ï¿½ë¹Šï¿½ë®†ï¿½ì ¾ æ�¶ì�‰ì˜™å� ìŽˆë•¾
 		
 		$params = array();
 		$params['outcnt'] = $outcnt;
@@ -92,18 +87,14 @@ class Notice extends Crypto_Controller {
 		$config['prev_link'] = '<img src="/assets/images/icon_left.png" width="25" height="25" alt="" style="vertical-align: middle;">';
 		$config['next_link'] = '<img src="/assets/images/icon_right.png" width="25" height="25" alt="" style="vertical-align: middle;">';
 		
-		
 		$this->pagination->initialize($config);
 		
 		$this->load->view('notice02_view', $data);	
 		$this->_footer();
-	
 	}
 	
 	
-	public function security_news()
-	{
-		
+	public function security_news(){
 		
 	}
 	

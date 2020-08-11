@@ -3,8 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Functions extends Crypto_Controller {
 
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
 	    $this->init();	
 	}
@@ -14,9 +13,7 @@ class Functions extends Crypto_Controller {
 	    $this->_header_dialog();
 	}
 	
-	public function index()
-	{				
-
+	public function index(){				
 	    if($this->session->userdata('user_id')){
 	        //for user
 	        $substracted_arr = $this->get_user_coin();	        
@@ -64,15 +61,12 @@ class Functions extends Crypto_Controller {
 	            'snt_rate' => null
 	        );
 	    }
-        	    
 	    $data['subtracted_list'] = $substracted_arr;
-
 		$this->load->view('function_view', $data);
 		$this->_footer();
 	}
 	
 	function get_user_coin(){
-	    
 	    $this->load->model('Musers');
 	    $result = $this->Musers->get_user_coin();
 	    
@@ -109,11 +103,8 @@ class Functions extends Crypto_Controller {
 	        $qtum_count = 0;
 	        $snt_count = 0;
 	    }
-	    
-
 	    $this->load->model('Mfunctions');
 	    $coin_data = $this->Mfunctions->get_coininfo_selected();
-	    
 	    
         foreach($coin_data as $list){            
             if($list->currency == 'btc'){
@@ -155,7 +146,6 @@ class Functions extends Crypto_Controller {
         }
         
         $substracted_arr = array(
-            
             'currency_btc' => $currency_btc,
             'currency_eth'=> $currency_eth,
             'currency_xrp'=> $currency_xrp,
@@ -196,13 +186,10 @@ class Functions extends Crypto_Controller {
             'qtum_rate' => $qtum_rate,
             'snt_rate' => $snt_rate
        );     
-        
 	    return $substracted_arr;
-	    
 	}
 	
 	function get_data_selected_ajax(){
-	    
 	    $btc_count = $this->input->post('btc_count');
 	    $eth_count = $this->input->post('eth_count');
 	    $xrp_count = $this->input->post('xrp_count');
@@ -255,7 +242,6 @@ class Functions extends Crypto_Controller {
 	    $currency_snt = 'snt';
 	    
 	    foreach($coin_data as $list){
-
 	        if($list->currency == 'btc'){
 	            $sum_btc = $list->price * $btc_count;
 	        }
@@ -286,7 +272,6 @@ class Functions extends Crypto_Controller {
 	    }
 	    
 	    $substracted_arr = array(
-	        
 	        'currency_btc' => $currency_btc,
 	        'currency_eth'=> $currency_eth,
 	        'currency_xrp'=> $currency_xrp,
@@ -316,18 +301,12 @@ class Functions extends Crypto_Controller {
 	        'pib_count' => $pib_count,
 	        'qtum_count' => $qtum_count,
 	        'snt_count' => $snt_count
-	        
 	    );	    
 	    $data['subtracted_list'] = $substracted_arr;
-	    
 	    echo json_encode(array('status' => 'success', 'message' => 'ss', 'data' => $substracted_arr));
 	    exit;
 	}
-	
-	
-	
-	
-	
+
 // 	function set_text_area(){
 	    
 // 	    $load->Model('Mfunctions');

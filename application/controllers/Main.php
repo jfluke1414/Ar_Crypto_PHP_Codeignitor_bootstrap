@@ -3,8 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Main extends Crypto_Controller {
 
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
 // 		$this->init();
 	}
@@ -13,13 +12,8 @@ class Main extends Crypto_Controller {
 	    $this->_header();
 // 	    $this->_header_dialog();
 	}
-
-	public function test(){
-	   echo 'a';
-	}
 	
-	public function index()
-	{		
+	public function index(){		
 	    if(!$this->inspection()){
             $this->load->view('login_view');
 	    } else {
@@ -66,7 +60,6 @@ class Main extends Crypto_Controller {
 	    $sum_arr = $result['sum'];
 	    $data = $result['data'];
 	    
-	    
 	    $year = date("Y");
 	    $month = date("n");
 	    $today = date("j");
@@ -89,14 +82,11 @@ class Main extends Crypto_Controller {
 	    foreach($areachart_data as $s){
 	        array_push($areachart_data_arr, $s->sum);
 	    }
-	    
 	    echo json_encode(array('status' => 'success', 'data' => $data, 'sum_arr' => $sum_arr, 'ereachart_data' => $areachart_data_arr, 'date_info' => $date_info));
 	    exit;
 	}
 	
-	
 	function get_user_coin_ajax(){
-	    
 	    $this->load->model('Musers');
 	    $result = $this->Musers->get_user_coin();
 	    
@@ -134,10 +124,8 @@ class Main extends Crypto_Controller {
 	        $snt_count = 0;
 	    }
 	    
-	    
 	    $this->load->model('Mfunctions');
 	    $coin_data = $this->Mfunctions->get_coininfo_selected();
-	    
 	    
 	    foreach($coin_data as $list){
 	        if($list->currency == 'btc'){
@@ -207,7 +195,6 @@ class Main extends Crypto_Controller {
 	        'sum_snt' => $sum_snt,
 	        
 	        'sum_total' => $sum_btc+$sum_eth+$sum_xrp+$sum_ltc+$sum_bch+$sum_dash+$sum_qtum+$sum_pib+$sum_snt
-	        
 	    );
 	    
 	    $subtracted_arr['sum'] = array(
@@ -221,7 +208,6 @@ class Main extends Crypto_Controller {
 	        'qtum' => $sum_qtum,
 	        'snt' => $sum_snt
 	    );
-	    
 	    // 	    $data['$substracted_btc'] = $substracted_btc;
 	    // 	    $data['$substracted_eth'] = $substracted_eth;
 	    // 	    $data['$substracted_xrp'] = $substracted_xrp;
@@ -230,14 +216,10 @@ class Main extends Crypto_Controller {
 	    // 	    $data['$substracted_pib'] = $substracted_pib;
 	    // 	    $data['$substracted_qtum'] = $substracted_qtum;
 	    // 	    $data['$substracted_snt'] = $substracted_snt;
-	    
 	    return $subtracted_arr;
-	    
 	}
-	
-	
+
 	function get_user_coin(){
-	    
 	    $this->load->model('Musers');
 	    $result = $this->Musers->get_user_coin();
 	    
@@ -275,10 +257,8 @@ class Main extends Crypto_Controller {
 	        $snt_count = 0;
 	    }
 	    
-	    
 	    $this->load->model('Mfunctions');
 	    $coin_data = $this->Mfunctions->get_coininfo_selected();
-	    
 	    
 	    foreach($coin_data as $list){
 	        if($list->currency == 'btc'){
@@ -318,7 +298,6 @@ class Main extends Crypto_Controller {
 	            $snt_rate = $list->price;
 	        }
 	    }
-	    
 	    
 	    $subtracted_arr = array(
 	        'currency_btc' => strtoupper($currency_btc),
@@ -368,7 +347,6 @@ class Main extends Crypto_Controller {
 	        
 	        'sum_total' => number_format($sum_btc+$sum_eth+$sum_xrp+$sum_ltc+$sum_bch+$sum_dash+$sum_qtum+$sum_pib+$sum_snt, 2, '.', ',')
 	    );
-        
 // 	    $data['$substracted_btc'] = $substracted_btc;
 // 	    $data['$substracted_eth'] = $substracted_eth;
 // 	    $data['$substracted_xrp'] = $substracted_xrp;
@@ -377,13 +355,9 @@ class Main extends Crypto_Controller {
 // 	    $data['$substracted_pib'] = $substracted_pib;
 // 	    $data['$substracted_qtum'] = $substracted_qtum;
 // 	    $data['$substracted_snt'] = $substracted_snt;
-	    
 	    return $subtracted_arr;
-	    
 	}
-	
-	
-	
+
 	function get_data(){
 	    $ex_arr = array();
 	    $ex_arr = $this->input->post('ex_arr');
@@ -403,9 +377,7 @@ class Main extends Crypto_Controller {
 // 	        }
 	    
 // 	         $data[$ex_arr[$i]]
-	         
 	    }
-
 	    echo json_encode(array('status' => 'success', 'data' => $data));
 	    exit;
 	}
@@ -413,7 +385,6 @@ class Main extends Crypto_Controller {
 	function get_coin_info_ajax($ex_name){
 	    $this->load->model('Mains');
 	    $data = $this->Mains->get_coin_info_ajax($ex_name);
-	    
 	    return $data;
 	}
 	
@@ -428,7 +399,6 @@ class Main extends Crypto_Controller {
 	function get_coin_info($ex_name){
 		$this->load->model('Mains');
 		$data = $this->Mains->get_coin_data($ex_name);
-		
 		return $data;
 	}
 	
@@ -448,10 +418,8 @@ class Main extends Crypto_Controller {
 		$this->Mains->set_coin_data($data);
 	}
 
-	function get_coinone_info()
-    {
+	function get_coinone_info(){
 		$coinone_url = 'https://api.coinone.co.kr/ticker/?currency="BTC"';
-		
 		$curl_handle=curl_init();
 		
 		curl_setopt($curl_handle, CURLOPT_URL,$coinone_url);
@@ -505,8 +473,7 @@ class Main extends Crypto_Controller {
 		return $datas;			
     }
     
-    function get_coinfield_info()
-    {
+    function get_coinfield_info(){
 		$coinfield = 'https://api.coinfield.com/v1/tickers';
 		
 		$curl_handle=curl_init();
@@ -551,11 +518,8 @@ class Main extends Crypto_Controller {
 		return $datas;			
     }
     
-    
-    function get_huobi_info()
-    {
+    function get_huobi_info(){
 		$huobi = 'https://api.huobi.pro/market/tickers';
-		
 		$curl_handle=curl_init();
 		curl_setopt($curl_handle, CURLOPT_URL,$huobi);
 		curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
@@ -592,8 +556,7 @@ class Main extends Crypto_Controller {
 		return $datas;			
     }
     
-    function get_upbit_info()
-    {
+    function get_upbit_info(){
         $upbit_btc = 'https://api.upbit.com/v1/ticker?markets=KRW-BTC';
         $curl_handle=curl_init();
         curl_setopt($curl_handle, CURLOPT_URL,$upbit_btc);
@@ -679,13 +642,8 @@ class Main extends Crypto_Controller {
         };
         return $datas;
     }
-    
-    
-    
-    
-    function get_bithumb_info()
-    {
-		
+
+    function get_bithumb_info(){
 		$bithumb_all = 'https://api.bithumb.com/public/ticker/all';
 		$datas = array();
 
@@ -718,9 +676,7 @@ class Main extends Crypto_Controller {
     }
     
     function get_bittrex_info(){
-        
         $bittrex_btc = 'https://api.bittrex.com/api/v1.1/public/getticker?market=USD-BTC';
-        
         $datas = array();
         
         $curl_handle=curl_init();
@@ -754,9 +710,7 @@ class Main extends Crypto_Controller {
         $datas['eth_currency'] =  "eth";
         $datas['eth_last'] =  $list->Last;
 
-        
         $bittrex_xrp = 'https://api.bittrex.com/api/v1.1/public/getticker?market=USD-XRP';
-        
         $curl_handle=curl_init();
         curl_setopt($curl_handle, CURLOPT_URL,$bittrex_xrp);
         curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
@@ -772,13 +726,10 @@ class Main extends Crypto_Controller {
         $datas['xrp_last'] =  $list->Last;
         
         return $datas;		
-        
     }
     
     function get_poloniex_info(){
-        
         $poloniex_all = 'https://poloniex.com/public?command=returnTicker';
-        
         $datas = array();
         
         $curl_handle=curl_init();
@@ -810,11 +761,8 @@ class Main extends Crypto_Controller {
         }
         return $datas;
     }
-    
-    
-    
-    function set_exchange_rate()
-    {
+
+    function set_exchange_rate(){
 		$exchange_url = 'https://free.currconv.com/api/v7/convert?q=cad_krw,usd_krw&compact=ultra&apiKey=1b2360cf16ac589201bc';
 		$datas = array();
 
@@ -832,8 +780,7 @@ class Main extends Crypto_Controller {
 		return $datas;			
     }
     
-	function get_exchange_info()
-	{
+    function get_exchange_info(){
 		$this->load->model('Mains');
 		$data = $this->Mains->get_exchange_rate();
 		return $data;
@@ -842,7 +789,4 @@ class Main extends Crypto_Controller {
 	function login(){
 	    $this->load->view('login_view');
 	}
-	
 }
-
-

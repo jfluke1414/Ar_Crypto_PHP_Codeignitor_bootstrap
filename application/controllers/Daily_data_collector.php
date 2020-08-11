@@ -1,16 +1,13 @@
 <?php 
 class Daily_data_collector extends Crypto_Controller{
     
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
     }
-    
-    
+
     public function index(){   
-        //         error_log("aaaaaaaaaaaaaaaa", 0); To php_error.log /home/cryptologs/php-err.log
+        //error_log("error", 0); To php_error.log /home/cryptologs/php-err.log
         $this->get_user_coin();
-        
     }
     
     public function get_user_coin(){
@@ -97,10 +94,8 @@ class Daily_data_collector extends Crypto_Controller{
             }
             $total = $sum_btc+$sum_eth+$sum_xrp+$sum_ltc+$sum_bch+$sum_dash+$sum_qtum+$sum_pib+$sum_snt;
             $this->Mains->save_total_info($user_id, $total);
-//             array_push($data, array('user_id' => $user_id, 'total' => $total));
+            //array_push($data, array('user_id' => $user_id, 'total' => $total));
         }
     }
-    
-    
 }
 ?>

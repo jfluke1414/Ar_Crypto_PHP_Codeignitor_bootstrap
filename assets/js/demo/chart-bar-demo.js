@@ -36,7 +36,6 @@ $.ajax({
 	dataType:"json",
 	encode:true,
 	success: function(data){
-
 		var sum_btc = data.sum_arr.btc;
 		var sum_eth = data.sum_arr.eth;
 		var sum_xrp = data.sum_arr.xrp;

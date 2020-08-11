@@ -2,83 +2,65 @@
 
 class Manage extends Crypto_Controller {
 
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();		
 		$this->load->library('session');
 		$this->_manageheader();
 	}
 
 	public function index(){
-		
 		if($this->session->userdata('isadmin') == true){
 			$this->_news_list();
 		} else {
 			$this->load->view('/manage/login_view');
-			
 		}
-
-		
 	}
 
-	public function write()
-	{
+	public function write(){
 		$this->_login_chk();
 		$this->load->view('/manage/write_view');
 	}
 	
-	public function inquiry()
-	{
+	public function inquiry(){
 		$this->_login_chk();
 		$this->load->view('/manage/inquiry_view');
 	}
 	
-	public function news_lists()
-	{
+	public function news_lists(){
 		$this->_news_list();
-		
 	}
 	
-	public function inquiry_lists()
-	{
+	public function inquiry_lists(){
 		$this->_inquiry_list();
-		
 	}
-	
 	
 	public function make_news(){
-		
 		$this->load->model('Manages');
 		$this->Manages->save_news();
 		
-		
-		$msg = "�돱�뒪媛� �벑濡� �릺�뿀�뒿�땲�떎.";
+		$msg = "ï¿½ë�±ï¿½ë’ªåª›ï¿½ ï¿½ë²‘æ¿¡ï¿½ ï¿½ë¦ºï¿½ë¿€ï¿½ë’¿ï¿½ë•²ï¿½ë–Ž.";
 		echo("<script>alert('$msg');</script>");
 		echo("<script>location.href='/manage/write';</script>");
-			
 	}
 	
 	public function make_inquiry(){
-		
 		$this->load->model('Manages');
 		$this->Manages->save_inquiry();
 		
-		$msg = "�씠�슜臾몄쓽媛� �벑濡� �릺�뿀�뒿�땲�떎.";
+		$msg = "ï¿½ì” ï¿½ìŠœè‡¾ëª„ì“½åª›ï¿½ ï¿½ë²‘æ¿¡ï¿½ ï¿½ë¦ºï¿½ë¿€ï¿½ë’¿ï¿½ë•²ï¿½ë–Ž.";
 		echo("<script>alert('$msg');</script>");
 		echo("<script>location.href='/manage/inquiry';</script>");
-			
 	}
 	
-	public function _news_list()
-	{	
+	public function _news_list(){	
 		$this->_login_chk();
 		
 		$id = $this->input->get('list_id');
 		$data['notice_id'] = $id;
 		$this->load->model('Notices');
 
-		$pagenum = $this->uri->segment(3, 1);	//�럹�씠吏� 踰덊샇
-		$outcnt = '5';							//由ъ뒪�듃 異쒕젰 媛��닔
+		$pagenum = $this->uri->segment(3, 1);	//ï¿½ëŸ¹ï¿½ì” ï§žï¿½ è¸°ë�Šìƒ‡
+		$outcnt = '5';							//ç”±ÑŠë’ªï¿½ë“ƒ ç•°ì’•ì ° åª›ï¿½ï¿½ë‹”
 		
 		$params = array();
 		$params['outcnt'] = $outcnt;
@@ -108,24 +90,19 @@ class Manage extends Crypto_Controller {
 		$config['prev_link'] = '<img src="/assets/images/icon_left.png" width="25" height="25" alt="" style="vertical-align: middle;">';
 		$config['next_link'] = '<img src="/assets/images/icon_right.png" width="25" height="25" alt="" style="vertical-align: middle;">';
 		
-		
 		$this->pagination->initialize($config);
-				
 		$this->load->view('/manage/newsList_view', $data);	
-		
 	}
 	
-	
-	public function _inquiry_list()
-	{	
+	public function _inquiry_list(){	
 		$this->_login_chk();
 		
 		$id = $this->input->get('list_id');
 		$data['notice_id'] = $id;
 		$this->load->model('Notices');
 
-		$pagenum = $this->uri->segment(3, 1);	//�럹�씠吏� 踰덊샇
-		$outcnt = '5';							//由ъ뒪�듃 異쒕젰 媛��닔
+		$pagenum = $this->uri->segment(3, 1);	//ï¿½ëŸ¹ï¿½ì” ï§žï¿½ è¸°ë�Šìƒ‡
+		$outcnt = '5';							//ç”±ÑŠë’ªï¿½ë“ƒ ç•°ì’•ì ° åª›ï¿½ï¿½ë‹”
 		
 		$params = array();
 		$params['outcnt'] = $outcnt;
@@ -155,16 +132,11 @@ class Manage extends Crypto_Controller {
 		$config['prev_link'] = '<img src="/assets/images/icon_left.png" width="25" height="25" alt="" style="vertical-align: middle;">';
 		$config['next_link'] = '<img src="/assets/images/icon_right.png" width="25" height="25" alt="" style="vertical-align: middle;">';
 		
-		
 		$this->pagination->initialize($config);
-				
 		$this->load->view('/manage/inquiryList_view', $data);	
-		
 	}
 	
-	public function _login_chk()
-	{
-		//留뚯빟 鍮꾨줈洹몄씤�씠硫� 濡쒓렇�씤�럹�씠吏�濡� �씠�룞�떆�궡	
+	public function _login_chk(){
 		if(!$this->session->userdata('isadmin'))
 		{
 			redirect('/Manage','location');
@@ -172,10 +144,8 @@ class Manage extends Crypto_Controller {
 		}
 	}
 	
-	function login_end()
-	{
+	function login_end(){
 		Header("Content-type: text/html; charset=UTF-8");
-		
 		// Load the model
 		$this->load->model('Manages');
 		// Validate the user can login
@@ -184,7 +154,7 @@ class Manage extends Crypto_Controller {
 		// Now we verify the result
 		if(! $result){
 			// If user did not validate, then show them login page again
-			$msg = "�븘�씠�뵒 �샊�� 鍮꾨�踰덊샇媛� �씪移섑븯吏� �븡�뒿�땲�떎.";
+			$msg = "ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ ï¿½ìƒŠï¿½ï¿½ é�®ê¾¨ï¿½è¸°ë�Šìƒ‡åª›ï¿½ ï¿½ì”ªç§»ì„‘ë¸¯ï§žï¿½ ï¿½ë¸¡ï¿½ë’¿ï¿½ë•²ï¿½ë–Ž.";
 			echo("
 			<script>
 			alert('$msg');
@@ -199,16 +169,12 @@ class Manage extends Crypto_Controller {
 		}
 	}
 	
-	public function logout()
-	{
+	public function logout(){
 		$this->session->sess_destroy();
 		redirect('/Manage', 'location');
 	}
-	
-	
-	public function admin_edit_news(){
-		
 
+	public function admin_edit_news(){
 		$id = $this->input->post('post_id');
 		
 		$this->load->model('Manages');
@@ -218,17 +184,13 @@ class Manage extends Crypto_Controller {
 			$id = $list->id;
 			$title = $list->title;
 			$content = $list->contents;
-
 		}
 
 		echo json_encode(array('status' => 'success', 'id' => $id, 'title' => $title, 'content' => $content));
 		exit;
-		
 	}
 	
 	public function admin_edit_inquiry(){
-		
-
 		$id = $this->input->post('post_id');
 		
 		$this->load->model('Manages');
@@ -240,42 +202,32 @@ class Manage extends Crypto_Controller {
 			$content = $list->contents;
 
 		}
-
 		echo json_encode(array('status' => 'success', 'id' => $id, 'title' => $title, 'content' => $content));
 		exit;
-		
 	}	
 	
-	
-	
 	public function save_news_modified(){
-				
 		$this->load->model('Manages');
 		$this->Manages->edit_news();
 
-		$msg = "�돱�뒪媛� �닔�젙 �릺�뿀�뒿�땲�떎.";
+		$msg = "ï¿½ë�±ï¿½ë’ªåª›ï¿½ ï¿½ë‹”ï¿½ì ™ ï¿½ë¦ºï¿½ë¿€ï¿½ë’¿ï¿½ë•²ï¿½ë–Ž.";
 		echo json_encode(array('status' => 'success', 'message' => $msg));
 		exit;
-
 	}
 	
 	public function save_inquiry_modified(){
-				
 		$this->load->model('Manages');
 		$this->Manages->edit_inquiry();
 
-		$msg = "�씠�슜臾몄쓽媛� �닔�젙 �릺�뿀�뒿�땲�떎.";
+		$msg = "ï¿½ì” ï¿½ìŠœè‡¾ëª„ì“½åª›ï¿½ ï¿½ë‹”ï¿½ì ™ ï¿½ë¦ºï¿½ë¿€ï¿½ë’¿ï¿½ë•²ï¿½ë–Ž.";
 		echo json_encode(array('status' => 'success', 'message' => $msg));
 		exit;
-
 	}	
 	
 	
-	public function del_rel()
-	{
-
+	public function del_rel(){
 		$id = $this->input->post('post_id');
-		
+
 		$this->load->model('Manages');
 		$this->Manages->del_rel($id);
 		
@@ -283,11 +235,8 @@ class Manage extends Crypto_Controller {
 		echo json_encode(array('status' => 'success','message'=> $msg));
 		exit;
 	}
-	
 
-	public function del_inquiry()
-	{
-
+	public function del_inquiry(){
 		$id = $this->input->post('post_id');
 		
 		$this->load->model('Manages');
@@ -297,7 +246,5 @@ class Manage extends Crypto_Controller {
 		echo json_encode(array('status' => 'success','message'=> $msg));
 		exit;
 	}
-	
-	
-	
+
 }

@@ -3,15 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Test extends Crypto_Controller {
 
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
 		$this->load->helper('download');
-		
 	}
 	
-	public function index()
-	{
+	public function index(){
 	    $this->load->view('test_view', $today);	
 		$this->_footer();
 	}
@@ -21,7 +18,6 @@ class Test extends Crypto_Controller {
 	    $month = date("n");
 	    $year = date("Y");
 	    echo $day." ";
-	    
 	    
 	    $nowdate = date("Y-m-d", strtotime( date("Y-m-d", strtotime( date("Y-m-d") ))));
 	    $next_month = date("Y-m-d", strtotime( date("Y-m-d", strtotime( date("Y-m-d") )) . "+1 month" ));
@@ -57,10 +53,6 @@ class Test extends Crypto_Controller {
 	    $number = 8;
 	    $number = sprintf('%02d',$number);
 // 	    echo $number;
-	    
-	    
-	    
-	    
 	}
 	
 	function get_user_coin_areachart(){
@@ -81,7 +73,6 @@ class Test extends Crypto_Controller {
 //     	    array_push($areachart_data_arr, $s->sum);
 //         }
         var_dump($areachart_data);
-        	
 	}
 	
 }

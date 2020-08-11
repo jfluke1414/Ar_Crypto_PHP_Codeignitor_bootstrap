@@ -18,7 +18,6 @@ class Setting extends Crypto_controller {
         
         $this->load->view('setting_view', $data);
         $this->_footer();
-        
     }
     
     public function save_user_coin_ajax(){
@@ -35,10 +34,6 @@ class Setting extends Crypto_controller {
         echo json_encode(array('status' => 'success', 'message' => $msg));
         exit;
     }
-    
-    
-    
 }
-
 
 ?>
