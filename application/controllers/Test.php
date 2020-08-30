@@ -9,7 +9,7 @@ class Test extends Crypto_Controller {
 	}
 	
 	public function index(){
-	    $this->load->view('test_view', $today);	
+	    $this->load->view('test_view');	
 		$this->_footer();
 	}
 

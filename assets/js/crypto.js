@@ -62,8 +62,145 @@ function ckeck_logout_Function(){
 		return false;
 }
 
+
+function number_format(number, decimals, dec_point, thousands_sep) {
+  // *     example: number_format(1234.56, 2, ',', ' ');
+  // *     return: '1 234,56'
+  number = (number + '').replace(',', '').replace(' ', '');
+  var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+    s = '',
+    toFixedFix = function(n, prec) {
+      var k = Math.pow(10, prec);
+      return '' + Math.round(n * k) / k;
+    };
+  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+  if ((s[1] || '').length < prec) {
+    s[1] = s[1] || '';
+    s[1] += new Array(prec - s[1].length + 1).join('0');
+  }
+  return s.join(dec);
+}
+
+
+
+function startTimer(duration, display) {
+	var timer = duration, minutes, seconds;
+
+	var myTimer = setInterval(function () {
+	minutes = parseInt(timer / 60, 10);
+	seconds = parseInt(timer % 60, 10);
+	
+	minutes = minutes < 10 ? "0" + minutes : minutes;
+	seconds = seconds < 10 ? "0" + seconds : seconds;
+	
+	//display.textContent = minutes + ":" + seconds;
+	display.textContent = seconds;
+	
+	if (--timer < 0) {
+	    timer = duration;
+	}
+	}, 1000);
+	return myTimer;
+	
+}
+
 $(function() {
+	
+	var dataString = "";
+	$.ajax({
+		type:"POST",
+		url:"Main/get_user_coin_chart",
+		data:dataString,
+		dataType:"json",
+		encode:true,
+		success: function(data){
+				var sum_total = number_format(data.data.sum_total);
+				$("#total_value").append(sum_total);
+			},
+			error: function(data){
+				alert('fail');
+			}
+		})
+
+	/*window.onload = function () {
+	    var fiveMinutes = 10,
+	        display = document.querySelector('#total_value_count');
+	    	startTimer(fiveMinutes, display);
+	};
+*/
+	
+	
+
+		//$("#total_value_count").empty();
+		//$("#total_value_count").append();
+
+	setInterval(function(){
+		$.ajax({
+		type:"POST",
+		url:"Main/get_user_coin_chart",
+		data:dataString,
+		dataType:"json",
+		encode:true,
+		success: function(data){
+			
+				/*
+				var duration = 5,
+				display = document.querySelector('#total_value_count');
+				var timer = duration, minutes, seconds;
+				var myTimer = setInterval(function () {
+				minutes = parseInt(timer / 60, 10);
+				seconds = parseInt(timer % 60, 10);
+				
+				minutes = minutes < 10 ? "0" + minutes : minutes;
+				seconds = seconds < 10 ? "0" + seconds : seconds;
+				
+				//display.textContent = minutes + ":" + seconds;
+				display.textContent = seconds;
+				
+				if (--timer < 0) {
+				    timer = duration;
+				}
+				}, 1000*1);
+				*/
+				
+				var sum_total = number_format(data.data.sum_total);
+				$("#total_value").empty();
+				$("#total_value").append(sum_total);
+				$('.total_value_div').attr('style', 'background:black;');
+				
+				setTimeout(function(){
+                	$('.total_value_div').attr('style', 'background:white;');     
+                }, 1000*1);
+				
+				//clearInterval(myTimer);
+				
+				/*
+				var fiveMinutes = 5,
+		        display = document.querySelector('#total_value_count');
+		    	newmyTimer = startTimer(fiveMinutes, display);	
+				setTimeout(function(){}, 1000*1);
+				*/
+
+			},
+			error: function(data){
+				alert('fail');
+			}
+		})
+	
+ 	}, 1000*6);//4seconds
+	
+	
 	/*
+	setInterval(function(){ 
+		$('#total_value').replaceWith('123');
+	 }, 3000);
 	$(".imagebox").bxSlider({
     	auto: true,
     	autoControls: true,
@@ -267,7 +404,7 @@ $(function() {
 //			    			alert('No result, Please check ID or PW');
 //			    		}
 			    	}
-			    	if(data.status == "fail"){			    		
+			    	if(data.status == "fail"){
 			    		alert(data.message);
 			    	}
 			    },
